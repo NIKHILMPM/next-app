@@ -28,6 +28,11 @@ pipeline{
                 }
             }
         }
+        stage("deploy containers k8s nodes "){
+            steps{
+                sh 'kubectl apply -f k8s/'
+            }
+        }
 
     }
 }
