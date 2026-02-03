@@ -13,13 +13,19 @@ pipeline{
             }
         }
 
-        stage('build and push docker image in docker hub'){
+        stage('builddocker image '){
             steps{
                 sh '''
                 docker build -t $IMAGE_NAME .
 
-                docker push $IMAGE_NAME
                 '''
+            }
+        }
+        stage('build and push docker image in docker hub'){
+            steps{
+                withDockerRegistry([credentialsId: 'docker-creds', url: '']) {
+                    sh 'docker push $IMAGE_NAME'
+                }
             }
         }
 
